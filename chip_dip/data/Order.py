@@ -7,7 +7,7 @@ class Delivery:
     city: str
     street: str
     building: str
-    delivery_type: str
+    delivery_method: str
     comment: str
 
 
@@ -16,6 +16,6 @@ order_delivery = Delivery(
     city='Брянск',
     street='б-р Гагарина',
     building='23',
-    delivery_type='Пункты выдачи заказов',
+    delivery_method='Пункты выдачи заказов',
     comment='Комментарий к заказу'
 )

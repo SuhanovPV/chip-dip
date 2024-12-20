@@ -10,6 +10,9 @@ class User:
     email: str
     mobile: str
 
+    def __repr__(self):
+        return f'User: login: {self.login}; name: {self.first_name} {self.last_name}'
+
 
 user = User(
     login='ssuxxarr',
