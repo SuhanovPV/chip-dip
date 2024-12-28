@@ -2,6 +2,7 @@ import allure
 from selene import browser
 from selenium.webdriver import ActionChains, Keys
 
+
 class ProductPage:
     @staticmethod
     def _open(product_name: str):
@@ -14,7 +15,6 @@ class ProductPage:
             browser.element('#ordering .input_qty').click()
             ActionChains(browser.driver).send_keys(Keys.DELETE).perform()
             browser.element('#ordering .input_qty').type(quantity)
-
 
     @staticmethod
     def _add_to_cart():
