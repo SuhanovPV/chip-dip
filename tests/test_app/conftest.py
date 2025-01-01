@@ -3,12 +3,13 @@ from appium.options.android import UiAutomator2Options
 from appium.webdriver.common.appiumby import AppiumBy
 from selene import browser
 from appium import webdriver
+from chip_dip.utils import path_helper
 
 @pytest.fixture(scope='function')
 def mobile_settings(request):
     options = UiAutomator2Options().load_capabilities({
-        'deviceName': 'SM-A325F',
-        'app': 'D:\\education\\python\\python_testing\\chip-dip\\app-obfuscate-storeRU-release-1.14.0.apk',
+        'deviceName': 'SM_G990E',
+        'app': path_helper.abs_path_from_project('app-obfuscate-storeRU-release-1.14.0.apk'),
         'appWaitActivity': 'ru.chipdip.mobile.activities.*',
         'appActivity': 'ru.chipdip.mobile.activities.MainActivity',
     })
