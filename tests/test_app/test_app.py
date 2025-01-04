@@ -1,65 +1,47 @@
-import allure
-from appium.webdriver.common.appiumby import AppiumBy
-from selene import browser, have, be
+from chip_dip.app_pages.cart_page import CartPage
+from chip_dip.app_pages.catalog_page import CatalogPage
+from chip_dip.app_pages.main_page import MainPage
+from chip_dip.app_pages.settings_page import SettingsPage
 
 
-def test_auth():
-    with allure.step("Authorization"):
-        browser.element((AppiumBy.ID, 'ru.chipdip.mobile:id/main_header_profile_button_text_view')).click()
-        browser.element((AppiumBy.ID, 'ru.chipdip.mobile:id/authorization_info_button')).click()
-        browser.all((AppiumBy.ID, 'ru.chipdip.mobile:id/edit_text_text')).first.type('ssuxxarr')
-        browser.all((AppiumBy.ID, 'ru.chipdip.mobile:id/edit_text_text')).second.type('hKJh8qcP12')
-        browser.element((AppiumBy.ID, 'ru.chipdip.mobile:id/progress_button_text_view')).click()
-    with allure.step("Check"):
-        browser.element((AppiumBy.ID, 'ru.chipdip.mobile:id/profile_personal_data_button_text_view')).click()
-        browser.all((AppiumBy.ID, 'ru.chipdip.mobile:id/edit_text_text')).should(have.exact_texts(
-            'ssuxxarr',
-            'Павел',
-            'Суханов',
-            'Викторович',
-            'ssuxxarr@mail.ru',
-            '+79030266669',
-        ))
+class TestApp:
+    def test_add_product_to_cart(self):
+        main_page = MainPage()
+        cart_page = CartPage()
+        catalog_page = CatalogPage()
 
-    with allure.step('Teardown'):
-        browser.element((AppiumBy.CLASS_NAME, 'android.widget.ImageButton')).click()
+        cart_page.clear_cart_if_not_empty()
+        main_page.open_page_via_side_menu('main_catalog_button')
+        catalog_page.search_product_in_catalog('HMC8038LP4CETR') \
+            .add_founded_product_to_cart() \
+            .back_to_catalog_from_search()
+        main_page.open_page_via_side_menu('main_cart_button')
 
-def test_add_product_to_cart():
-    browser.element((AppiumBy.ID, 'ru.chipdip.mobile:id/main_header_catalog_button_text_view')).click()
-    browser.element((AppiumBy.ID, 'ru.chipdip.mobile:id/search_bar_input_edit_text')).click()
-    browser.element((AppiumBy.ID, 'ru.chipdip.mobile:id/search_bar_input_edit_text')).type('HMC8038LP4CETR')
-    browser.all(
-        (AppiumBy.ID, 'ru.chipdip.mobile:id/item_catalog_text_label_text_view')
-    ).first.should(have.text('HMC8038LP4CETR'))
-    browser.all(
-        (AppiumBy.ID, 'ru.chipdip.mobile:id/item_catalog_text_label_text_view')
-    ).first.click()
-    browser.element((AppiumBy.ID, 'ru.chipdip.mobile:id/progress_button_text_view')).click()
-    browser.element((AppiumBy.ID, 'ru.chipdip.mobile:id/floating_cart_button')).click()
-    browser.element(
-        (AppiumBy.ID, 'ru.chipdip.mobile:id/item_cart_product_name_label_text_view')
-    ).should(have.text('HMC8038LP4CETR'))
+        cart_page.should_product_be_in_cart('HMC8038LP4CETR')
+
+    def test_clear_cart(self):
+        main_page = MainPage()
+        cart_page = CartPage()
+        catalog_page = CatalogPage()
+        main_page.open_page_via_side_menu('main_catalog_button')
+        catalog_page.search_product_in_catalog('FSCQ0765RTYDTU') \
+            .add_founded_product_to_cart() \
+            .back_to_catalog_from_search()
+        main_page.open_page_via_side_menu('main_cart_button')
+        cart_page.clear_cart()
+
+        cart_page.should_cart_be_empty()
 
 
-def test_settings():
-    browser.element((AppiumBy.ID, 'ru.chipdip.mobile:id/main_header_settings_button_text_view')).click()
-    browser.element((AppiumBy.ID, 'ru.chipdip.mobile:id/settings_favorites_item_switch')).click()
-    browser.element((AppiumBy.ID, 'ru.chipdip.mobile:id/settings_information_item_switch')).click()
-    browser.element((AppiumBy.ID, 'ru.chipdip.mobile:id/settings_information_item_switch')).click()
-    browser.element((AppiumBy.CLASS_NAME, 'android.widget.ImageButton')).click()
-    browser.element((AppiumBy.ID, 'ru.chipdip.mobile:id/main_home_button')).click()
-    browser.element('ru.chipdip.mobile:id/main_header_profile_button_text_view').should(have.exact_texts('Профиль'))
-    browser.element('ru.chipdip.mobile:id/main_header_orders_button_text_view').should(have.exact_texts('Заказы'))
-    browser.element('ru.chipdip.mobile:id/main_header_favorites_button_text_view').should(have.no.existing)
-    browser.element('ru.chipdip.mobile:id/main_header_info_button_text_view').should(have.no.existing)
+    def test_set_sections_on_main_page(self):
+        main_page = MainPage()
+        settings_page = SettingsPage()
+        main_page.open_page_via_side_menu('main_settings_button')
+        settings_page.switch_settings_checkbox('orders') \
+            .switch_settings_checkbox('favorites') \
+            .switch_settings_checkbox('information')
+        main_page.open_page_via_side_menu('main_home_button')
 
-
-
-
-
-
-
-
-
-
-
+        main_page.should_section_be_missing('orders') \
+            .should_section_be_missing('favorites') \
+            .should_section_be_missing('info')
