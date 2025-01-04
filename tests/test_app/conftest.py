@@ -1,3 +1,4 @@
+import allure
 import pytest
 from appium.options.android import UiAutomator2Options
 from selene import browser
@@ -43,8 +44,10 @@ def mobile_settings(request):
 def skip_welcome_screen(mobile_settings):
     main_page = MainPage()
     if main_page.is_welcome_screen():
-        main_page.scip_welcome_screen() \
-            .select_region() \
-            .open_auth_page()
-        login_page = LoginPage()
-        login_page.login('ssuxxarr', 'hKJh8qcP12')
+        with allure.step('Skip welcome screen'):
+            main_page.scip_welcome_screen() \
+                .select_region()
+        with allure.step('Login'):
+            main_page.open_auth_page()
+            login_page = LoginPage()
+            login_page.login('ssuxxarr', 'hKJh8qcP12')
