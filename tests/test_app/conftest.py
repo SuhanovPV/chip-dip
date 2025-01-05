@@ -40,7 +40,7 @@ def mobile_settings(request):
     browser.quit()
 
 
-@pytest.fixture(scope='function', autouse=True)
+@pytest.fixture(scope='function')
 def skip_welcome_screen(mobile_settings):
     main_page = MainPage()
     if main_page.is_welcome_screen():

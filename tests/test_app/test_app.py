@@ -7,7 +7,7 @@ from chip_dip.app_pages.settings_page import SettingsPage
 
 
 class TestApp:
-    def test_add_product_to_cart(self):
+    def test_add_product_to_cart(self, skip_welcome_screen):
         product = 'HMC8038LP4CETR'
         main_page = MainPage()
         cart_page = CartPage()
@@ -24,7 +24,7 @@ class TestApp:
         with allure.step(f'Check product "{product}" in cart'):
             cart_page.should_product_be_in_cart(product)
 
-    def test_clear_cart(self):
+    def test_clear_cart(self, skip_welcome_screen):
         product = 'FSCQ0765RTYDTU'
         main_page = MainPage()
         cart_page = CartPage()
@@ -42,7 +42,7 @@ class TestApp:
             cart_page.should_cart_be_empty()
 
 
-    def test_display_of_sections_on_main_page(self):
+    def test_display_of_sections_on_main_page(self, skip_welcome_screen):
         main_page = MainPage()
         settings_page = SettingsPage()
         with allure.step('Set display of sections in settings'):
