@@ -37,8 +37,14 @@ def browser_settings(request):
 
 @pytest.fixture()
 def mark_skip_app_test(request):
+    if request.config.getoption('--service') == 'web':
+        pytest.skip('This test for application')
+
+@pytest.fixture()
+def mark_skip_web_test(request):
     if request.config.getoption('--service') == 'app':
-        pytest.skip('App test')
+        pytest.skip('This test for web')
+
 
 
 @pytest.fixture()

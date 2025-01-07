@@ -4,7 +4,7 @@ import pytest
 from chip_dip.data.Users import user
 from chip_dip.pages.login_form import Login
 
-@pytest.mark.usefixtures('mark_skip_app_test')
+@pytest.mark.usefixtures('mark_skip_web_test')
 class TestAuthorization:
 
     def test_login_with_correct_credentials(self, logout):

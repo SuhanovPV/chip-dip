@@ -1,4 +1,5 @@
 import allure
+import pytest
 
 from chip_dip.app_pages.cart_page import CartPage
 from chip_dip.app_pages.catalog_page import CatalogPage
@@ -6,6 +7,7 @@ from chip_dip.app_pages.main_page import MainPage
 from chip_dip.app_pages.settings_page import SettingsPage
 
 
+@pytest.mark.usefixtures("mark_skip_app_test")
 class TestApp:
     def test_add_product_to_cart(self, skip_welcome_screen):
         product = 'HMC8038LP4CETR'

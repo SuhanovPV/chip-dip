@@ -6,7 +6,7 @@ from chip_dip.pages.order_page import OrderPage
 from chip_dip.pages.product_page import ProductPage
 
 
-@pytest.mark.usefixtures("mark_skip_app_test")
+@pytest.mark.usefixtures("mark_skip_web_test")
 class TestCart:
     def test_add_good_to_cart(self, clear_cart):
         product_page = ProductPage()
