@@ -32,7 +32,7 @@ class OrderPage:
     @staticmethod
     def should_set_order_address(delivery: Delivery):
         with allure.step('Check check the address provided'):
-            browser.element('#pvz_props .pvz-address').should(have.exact_text(
+            browser.element('#pvz_props .pvz-name').should(have.text(
                 f'{delivery.country}, г {delivery.city}, {delivery.street}, д {delivery.building}'
             ))
 

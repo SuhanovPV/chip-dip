@@ -41,7 +41,7 @@ def load_app_config_from_env(location):
 
 def load_web_config_from_env(location):
     if location in ['local', 'remote']:
-        config = AppConfig(_env_file=path_helper.abs_path_from_project(f'.env_app_{location}'))
+        config = WebConfig(_env_file=path_helper.abs_path_from_project(f'.env_web_{location}'))
     else:
         raise KeyError
     return config

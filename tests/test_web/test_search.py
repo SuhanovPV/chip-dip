@@ -1,6 +1,9 @@
+import pytest
+
 from chip_dip.pages.main_page import MainPage
 
 
+@pytest.mark.usefixtures('mark_skip_app_test')
 class TestSearch:
     def test_search_results_found(self):
         search_text = 'ADS7846E'

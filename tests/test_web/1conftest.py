@@ -29,7 +29,7 @@ def browser_set():
 def login():
     browser.open('/')
     login = Login()
-    login.login_if_no_auth(user, password)
+    login.login_if_no_auth(user)
 
 
 @pytest.fixture(scope='function')

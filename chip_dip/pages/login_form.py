@@ -25,10 +25,10 @@ class Login:
         with allure.step('Submit authorization form'):
             browser.element('#logonform button[type="submit"]').click()
 
-    def login(self, user: User, password: str):
-        with allure.step(f'Authorization with user "{user}"'):
+    def login(self, login: str, password: str):
+        with allure.step(f'Authorization with login "{login}"'):
             self._open()
-            self._fill_login(user.login)
+            self._fill_login(login)
             self._fill_password(password)
             self._submit()
 
@@ -43,14 +43,14 @@ class Login:
         browser.element('.form__globalerror').should(
             have.exact_text('Неверно указан логин или пароль, попробуйте еще раз'))
 
-    def login_if_no_auth(self, user: User, password: str):
+    def login_if_no_auth(self, user: User):
         with allure.step('Login if not logged in before'):
             element = browser.all('.header__main-links a').first
             if element.matching(have.exact_text('Вход')):
                 with allure.step('Open auth form'):
                     element.click()
                 self._fill_login(user.login)
-                self._fill_password(password)
+                self._fill_password(user.password)
                 self._submit()
                 self.should_success_auth(user)
 
