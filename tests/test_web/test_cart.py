@@ -27,7 +27,7 @@ class TestCart:
         cart.should_present_products(products)
 
     @allure.tag('web', 'cart')
-    @allure.title('Add remove all product from cart')
+    @allure.title('Remove all product from cart')
     @allure.severity(allure.severity_level.MINOR)
     def test_clear_cart(self, clear_cart):
         product_page = ProductPage()
