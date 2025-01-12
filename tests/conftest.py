@@ -10,11 +10,10 @@ from chip_dip.app_pages.login_page import LoginPage
 from chip_dip.data.Users import user
 from chip_dip.utils import allure_attach
 
-
 def pytest_addoption(parser):
     parser.addoption(
         '--location',
-        default='remote',
+        default='local',
         help='--location: local, remote'
     )
     parser.addoption(
@@ -24,7 +23,7 @@ def pytest_addoption(parser):
     )
 
 
-@pytest.fixture(scope='class', autouse=True)
+@pytest.fixture(scope='class')
 def browser_settings(request):
     service = request.config.getoption('--service')
     location = request.config.getoption('--location')
@@ -32,7 +31,7 @@ def browser_settings(request):
     if service == 'web':
         config.set_browser(location)
     elif service == 'app':
-        config.set_mobile(location)
+        pytest.skip('This test run for web')
     else:
         raise KeyError
 
@@ -46,17 +45,27 @@ def browser_settings(request):
     if location == 'remote':
         allure_attach.video(service, session_id)
 
+@pytest.fixture(scope='class')
+def mobile_settings(request):
+    service = request.config.getoption('--service')
+    location = request.config.getoption('--location')
 
-@pytest.fixture()
-def mark_skip_app_test(request):
-    if request.config.getoption('--service') == 'web':
-        pytest.skip('This test for application')
+    if service == 'app':
+        config.set_mobile(location)
+    elif service == 'web':
+        pytest.skip('This test run for app')
+    else:
+        raise KeyError
 
+    yield service
+    session_id = browser.driver.session_id
+    allure_attach.screenshot(browser)
+    allure_attach.page_source(browser, service)
 
-@pytest.fixture()
-def mark_skip_web_test(request):
-    if request.config.getoption('--service') == 'app':
-        pytest.skip('This test for web')
+    browser.quit()
+
+    if location == 'remote':
+        allure_attach.video(service, session_id)
 
 
 @pytest.fixture()
