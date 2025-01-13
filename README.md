@@ -27,7 +27,6 @@
     <li>Remove all product from cart</li>
     <li>Change number of section on main page</li>
 </ul>
-https://jenkins.autotests.cloud/job/c16-chip-dip/
 
 ## <img width="3%" title="Jenkins" src="source/jenkins.svg"> Запуск проекта в Jenkins
 #### Для запуска автотестов в Jenkins
@@ -40,7 +39,7 @@ https://jenkins.autotests.cloud/job/c16-chip-dip/
 5. __Нажать кнопку `Build`__
 6. __Результат запуска сборки можно посмотреть в отчете Allure__
 
-> <a target="_blank" href="https://www.chipdip.ru/">Jenkis</a>
+> <a target="_blank" href="https://jenkins.autotests.cloud/job/c16-chip-dip/">Jenkis</a>
 <img width="1200" src="source/Jenkins_build.png">
 
 ## <img width="3%" title="Allure report"  src="source/allure.svg"> Отчет в Allure report
@@ -57,6 +56,13 @@ __Каждый тесто содержит детальную информаци
 >__Пример видео для теста вебсайта: (Оформление заказа)__
 <img width="1200" src="source/web_video.gif">
 
->__Пример видео для теста приложения: (Добавление товара в корзину)__
-> 
-<img width="350" src="source/app_video.gif">
+>__Пример видео для теста приложения: (Добавление товара в корзину)<br>__
+> <img width="350" src="source/app_video.gif">
+
+## <img width="3%" title="Allure testopts"  src="source/allure-testops.png"> Интеграция с Allure TestOps
+>__<a href="">Dashboard</a>__
+<img width="1200" src="source/w">
+
+## <img width="3%" title="Telegram"  src="source/telegram.svg"> Оповещения в Telegram
+>__После выполнения тестов, в Telegram bot приходит сообщение с графиком и информацией о тестовом прогоне.__
+> <img width="120" src="source/tg">
