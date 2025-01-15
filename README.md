@@ -59,3 +59,14 @@ __Каждый тесто содержит детальную информаци
 >__Пример видео для теста приложения: (Добавление товара в корзину)<br>__
 > <img width="350" src="source/app_video.gif">
 
+## <img width="3%" title="Allure testopts"  src="source/allure-testops.png"> Интеграция с Allure TestOps
+>__<a href="https://allure.autotests.cloud/project/4556/dashboards">Dashboard</a> с результатами о прохождении тестов.__
+<img width="1200" src="source/allure_testopt_main.png">
+
+>__Список тест-кейсов, включая ручные__
+<img width="1200" src="source/allure_testopt_cases.png">
+
+## <img width="3%" title="Telegram"  src="source/telegram.svg"> Оповещения в Telegram
+>__После выполнения тестов, в Telegram bot приходит сообщение с графиком и информацией о тестовом прогоне.<br>__
+> <img src="source/tg_report.png">
+
